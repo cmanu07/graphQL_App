@@ -1,0 +1,13 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', 'Poppins', Arial, Helvetica, sans-serif;
+    scroll-behavior: smooth;
+    background: linear-gradient(108.08deg, #348F50 0.53%, #56B4D3 100%);
+    color: #FFFFFF;
+}
+h1 {
+    text-align: center;
+    margin-top: 3em;
+}
