@@ -31,17 +31,21 @@ const GetData = () => {
     
     // VISX Chart
     const [activePieBar, setActivePieBar] = useState(() => '')
+    const [postsNr, setNrPosts] = useState(() => 0)
     
     const newDate = (parDate) => new Date (+parDate * 1000)
    
-      let result = posts.map(post => {
-        const { createdAt } = post
-        const rez = (newDate(createdAt).getFullYear() > 51900) ? newDate(createdAt).getMonth() : null    
-        return rez
-      })
-      for (let field of postData) {
-        for (let p of result) {
-          if (p === field.monthIndex) field.nrOfPosts++
+      if (postsNr === 0) {
+        let result = posts.map(post => {
+          const { createdAt } = post
+          // here I implement the condition for the year to be bigger then 51900 because of the missing year information
+          const rez = (newDate(createdAt).getFullYear() > 51900) ? newDate(createdAt).getMonth() : null    
+          return rez
+        })
+        for (let field of postData) {
+          for (let p of result) {
+            if (p === field.monthIndex) field.nrOfPosts++ && setNrPosts(field.nrOfPosts)
+          }
         }
       }
 
@@ -53,8 +57,6 @@ const GetData = () => {
         setLoader(false)
       }
     }
-    
-
 
   return (
     <section className='graphql-data-section'>
@@ -79,7 +81,7 @@ const GetData = () => {
                           pieValue={data => data.nrOfPosts}
                           outerRadius={145 - 2}
                           innerRadius={({data}) => {
-                            const size = activePieBar && activePieBar.month === data.month ? 14 : 10
+                            const size = activePieBar && activePieBar.month === data.month ? 28 : 14
                             return 145 - size
                           }}
                           padAngle={0.02}
